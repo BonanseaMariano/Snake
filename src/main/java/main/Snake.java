@@ -1,10 +1,10 @@
 package main;
 
-import gui.JuegoVentana;
+import logic.Logica;
 
 public class Snake {
 
     public static void main(String[] args) {
-        new JuegoVentana();
+        new Logica();
     }
 }
