@@ -3,10 +3,10 @@ package models;
 import utils.Constants;
 
 public class Serpiente {
-    private static int[] snakeX;
-    private static int[] snakeY;
+    private int[] snakeX;
+    private int[] snakeY;
 
-    private static int cuerpo_serpiente = 3;
+    private int cuerpo_serpiente = 3;
     private static final int TOTAL_CUERPO_SERPIENTE = (Constants.PANTALLA * Constants.PANTALLA) / Constants.CUADRO_SIZE;
 
     public Serpiente() {

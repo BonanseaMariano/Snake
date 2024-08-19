@@ -6,16 +6,10 @@ import java.awt.event.KeyListener;
 
 public class JuegoVentana extends JFrame {
 
-    private KeyListener keyListener;
-
-    public JuegoVentana(KeyListener keyListener) {
-        this.keyListener = keyListener;
+    public JuegoVentana() {
         this.setTitle("Snake");
-        cargarPanel(new JuegoContenido(keyListener));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        this.pack();
-        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 
@@ -24,5 +18,6 @@ public class JuegoVentana extends JFrame {
         this.getContentPane().add(panel, BorderLayout.CENTER);
         this.pack();
         this.repaint();
+        panel.requestFocus();
     }
 }

@@ -2,8 +2,8 @@ package models;
 
 
 public class Comida {
-    private static int comidaX;
-    private static int comidaY;
+    private int comidaX;
+    private int comidaY;
 
     public int getComidaX() {
         return comidaX;

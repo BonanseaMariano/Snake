@@ -13,7 +13,9 @@ public class JuegoContenido extends JPanel {
     private Serpiente serpiente = new Serpiente();
     private Comida comida = new Comida();
 
-    public JuegoContenido(KeyListener listener) {
+    public JuegoContenido(KeyListener listener, Serpiente serpiente, Comida comida) {
+        this.serpiente = serpiente;
+        this.comida = comida;
         this.setPreferredSize(new Dimension(Constants.PANTALLA, Constants.PANTALLA));
         this.setBackground(Color.black);
         this.setFocusable(true);
@@ -21,11 +23,21 @@ public class JuegoContenido extends JPanel {
     }
 
     public void dibujarSerpiente(Graphics g) {
+
         //Dibujar Snake
-        g.setColor(Color.green);
         for (int i = 0; i < serpiente.getCuerpo_serpiente(); i++) {
+            g.setColor(Color.green);
             g.fillRect(serpiente.getSnakeX()[i], serpiente.getSnakeY()[i], Constants.CUADRO_SIZE, Constants.CUADRO_SIZE);
+
+            g.setColor(Color.black);
+            g.drawRect(serpiente.getSnakeX()[i], serpiente.getSnakeY()[i], Constants.CUADRO_SIZE, Constants.CUADRO_SIZE);
         }
+
+        //Dibujar ojos Serpiente
+        g.setColor(Color.black);
+        g.fillOval(serpiente.getSnakeX()[0] + 5, serpiente.getSnakeY()[0] + 5, 5, 5);
+        g.fillOval(serpiente.getSnakeX()[0] + 15, serpiente.getSnakeY()[0] + 5, 5, 5);
+
         repaint();
     }
 

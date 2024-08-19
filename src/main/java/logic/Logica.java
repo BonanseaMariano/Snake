@@ -1,5 +1,6 @@
 package logic;
 
+import gui.JuegoContenido;
 import gui.JuegoVentana;
 import models.Comida;
 import models.Serpiente;
@@ -14,26 +15,40 @@ import java.util.Random;
 
 
 public class Logica implements ActionListener {
+    private static Logica instancia;
+
     //Snake,
-    Serpiente serpiente;
+    private Serpiente serpiente;
     private char direccion = 'd';
 
     //Comida
-    Comida comida;
+    private Comida comida;
 
     //Timer,
-    boolean running = true;
-    Timer timer;
+    private boolean running = true;
+    private Timer timer;
 
     //GUI
-    JuegoVentana juego = new JuegoVentana(new Controles());
+    private JuegoVentana juego;
+    private JuegoContenido panel;
 
     //Otros,
-    Random random = new Random();
+    private Random random = new Random();
 
-    public Logica() {
+    public static Logica getInstance() {
+        if (instancia == null) {
+            instancia = new Logica();
+        }
+        return instancia;
+    }
+
+    private Logica() {
         serpiente = new Serpiente();
         comida = new Comida();
+        juego = new JuegoVentana();
+        panel = new JuegoContenido(new Controles(), serpiente, comida);
+        juego.cargarPanel(panel);
+        juego.setLocationRelativeTo(null);
         this.iniciarJuego();
     }
 
@@ -48,7 +63,7 @@ public class Logica implements ActionListener {
         comida.setComidaY(random.nextInt(Constants.CUADRADOS_EN_PARALELO) * Constants.CUADRO_SIZE);
     }
 
-    public void moverSnake() {
+    private void moverSnake() {
 
         //Temporales
         int[] sX = serpiente.getSnakeX();
@@ -77,14 +92,14 @@ public class Logica implements ActionListener {
         }
     }
 
-    public void checarComida() {
+    private void checarComida() {
         if (serpiente.getSnakeX()[0] == comida.getComidaX() && serpiente.getSnakeY()[0] == comida.getComidaY()) {
             serpiente.incrementarCuerpo();
             agregarComida();
         }
     }
 
-    public void checarColisiones() {
+    private void checarColisiones() {
         //Temporales
         int[] sX = serpiente.getSnakeX();
         int[] sY = serpiente.getSnakeY();
@@ -102,9 +117,10 @@ public class Logica implements ActionListener {
         }
     }
 
-    public void finJuego() {
+    private void finJuego() {
         running = false;
         timer.stop();
+        direccion = 'd';
     }
 
     /**
